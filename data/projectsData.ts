@@ -7,20 +7,16 @@ interface Project {
 
 const projectsData: Project[] = [
   {
-    title: 'A Search Engine',
-    description: `What if you could look up any information in the world? Webpages, images, videos
-    and more. Google has many features to help you find exactly what you're looking
-    for.`,
-    imgSrc: '/static/images/google.png',
-    href: 'https://www.google.com',
+    title: 'IBM Bootcamp Project',
+    description: `Financial Transaction Manager web application developed from scratch as the final project of an IBM Bootcamp using Java with Spring Boot for back-end and Angular TypeScript framework for front-end.`,
+    imgSrc: '/static/images/ibm.jpeg',
+    href: 'https://github.com/clintonbrito/ibm-bootcamp-project',
   },
   {
-    title: 'The Time Machine',
-    description: `Imagine being able to travel back in time or to the future. Simple turn the knob
-    to the desired date and press "Go". No more worrying about lost keys or
-    forgotten headphones with this simple yet affordable solution.`,
-    imgSrc: '/static/images/time-machine.jpg',
-    href: '/blog/the-time-machine',
+    title: 'E-Commerce RESTful API',
+    description: `Backend challenge project for a job application. It is a RESTful API built with AdonisJS (Node.js) and MySQL for managing users, clients, products, and sales. The project follows the MVC architecture and includes user authentication with JWT.`,
+    imgSrc: '/static/images/api-ecommerce.jpeg',
+    href: 'https://github.com/clintonbrito/restful-api-ecommerce',
   },
 ]
 
