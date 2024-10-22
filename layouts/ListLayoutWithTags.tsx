@@ -1,15 +1,14 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { slug } from 'github-slugger'
-import { formatDate } from 'pliny/utils/formatDate'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
+import Image from 'next/image'
+import { formatDate } from 'pliny/utils/formatDate'
 
 interface PaginationProps {
   totalPages: number
@@ -84,70 +83,49 @@ export default function ListLayoutWithTags({
           </h1>
         </div>
         <div className="flex sm:space-x-24">
-          <div className="hidden h-full max-h-screen min-w-[280px] max-w-[280px] flex-wrap overflow-auto rounded bg-gray-50 pt-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40 sm:flex">
-            <div className="px-6 py-4">
-              {pathname.startsWith('/blog') ? (
-                <h3 className="font-bold uppercase text-primary-500">All Posts</h3>
-              ) : (
-                <Link
-                  href={`/blog`}
-                  className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-                >
-                  All Posts
-                </Link>
-              )}
-              <ul>
-                {sortedTags.map((t) => {
-                  return (
-                    <li key={t} className="my-3">
-                      {decodeURI(pathname.split('/tags/')[1]) === slug(t) ? (
-                        <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500">
-                          {`${t} (${tagCounts[t]})`}
-                        </h3>
-                      ) : (
-                        <Link
-                          href={`/tags/${slug(t)}`}
-                          className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-                          aria-label={`View posts tagged ${t}`}
-                        >
-                          {`${t} (${tagCounts[t]})`}
-                        </Link>
-                      )}
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </div>
           <div>
-            <ul>
+            <ul className="grid gap-6 lg:grid-cols-2">
               {displayPosts.map((post) => {
-                const { path, date, title, summary, tags } = post
+                const { path, date, title, summary, tags, images } = post
+
                 return (
                   <li key={path} className="py-5">
-                    <article className="flex flex-col space-y-2 xl:space-y-0">
+                    <article className="dark:bg-dark-100 mx-auto overflow-hidden rounded-xl shadow-md duration-300 hover:scale-105">
+                      {images && images[0] && (
+                        <Image
+                          alt={title}
+                          src={images[0]}
+                          className="aspect-video w-full object-cover"
+                          width={544}
+                          height={306}
+                        />
+                      )}
+                      <div className="p-3 dark:bg-slate-700">
+                        <h2 className="text-2xl font-bold leading-8 tracking-tight">{title}</h2>
+                        <div className="mt-1 flex flex-row space-x-3">
+                          <span className="ml-2 text-sm font-bold text-slate-400">
+                            <time dateTime={date}>{formatDate(date)}</time>
+                          </span>
+                          <span className="px-2 text-sm font-bold">
+                            {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                          </span>
+                        </div>
+                      </div>
                       <dl>
-                        <dt className="sr-only">Published on</dt>
-                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-200">
-                          <time dateTime={date} suppressHydrationWarning>
-                            {formatDate(date, siteMetadata.locale)}
-                          </time>
-                        </dd>
+                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-200"></dd>
                       </dl>
                       <div className="space-y-3">
                         <div>
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                          {/* <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
                               {title}
                             </Link>
-                          </h2>
-                          <div className="flex flex-wrap">
-                            {tags?.map((tag) => <Tag key={tag} text={tag} />)}
-                          </div>
+                          </h2> */}
+                          <div className="flex flex-wrap"></div>
                         </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-200">
+                        {/* <div className="prose max-w-none text-gray-500 dark:text-gray-200">
                           {summary}
-                        </div>
+                        </div> */}
                       </div>
                     </article>
                   </li>

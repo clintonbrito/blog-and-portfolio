@@ -22,6 +22,12 @@ const siteMetadata = {
   instagram: 'https://www.instagram.com',
   medium: 'https://medium.com',
   locale: 'en-US',
+  postDateTemplate: {
+    // weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  },
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
   analytics: {
