@@ -90,44 +90,48 @@ export default function ListLayoutWithTags({
 
                 return (
                   <li key={path} className="py-5">
-                    <article className="dark:bg-dark-100 mx-auto overflow-hidden rounded-xl shadow-md duration-300 hover:scale-105">
-                      {images && images[0] && (
-                        <Image
-                          alt={title}
-                          src={images[0]}
-                          className="aspect-video w-full object-cover"
-                          width={544}
-                          height={306}
-                        />
-                      )}
-                      <div className="p-3 dark:bg-slate-700">
-                        <h2 className="text-2xl font-bold leading-8 tracking-tight">{title}</h2>
-                        <div className="mt-1 flex flex-row space-x-3">
-                          <span className="ml-2 text-sm font-bold text-slate-400">
-                            <time dateTime={date}>{formatDate(date)}</time>
-                          </span>
-                          <span className="px-2 text-sm font-bold">
-                            {tags?.map((tag) => <Tag key={tag} text={tag} />)}
-                          </span>
+                    <Link target="_self" href={path}>
+                      <article className="dark:bg-dark-100 mx-auto overflow-hidden rounded-xl shadow-md duration-300 hover:scale-105">
+                        {images && images[0] && (
+                          <Image
+                            alt={title}
+                            src={images[0]}
+                            className="aspect-video w-full object-cover"
+                            width={544}
+                            height={306}
+                          />
+                        )}
+                        <div className="p-3 dark:bg-slate-700">
+                          <h2 className="text-2xl font-bold leading-8 tracking-tight">{title}</h2>
+                          <div className="mt-1 flex flex-row space-x-3">
+                            <span className="ml-2 text-sm font-bold text-slate-400">
+                              <time dateTime={date} suppressHydrationWarning>
+                                {formatDate(date)}
+                              </time>
+                            </span>
+                            <span className="px-2 text-sm font-bold">
+                              {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <dl>
-                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-200"></dd>
-                      </dl>
-                      <div className="space-y-3">
-                        <div>
-                          {/* <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                        <dl>
+                          <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-200"></dd>
+                        </dl>
+                        <div className="space-y-3">
+                          <div>
+                            {/* <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
                               {title}
                             </Link>
                           </h2> */}
-                          <div className="flex flex-wrap"></div>
-                        </div>
-                        {/* <div className="prose max-w-none text-gray-500 dark:text-gray-200">
+                            <div className="flex flex-wrap"></div>
+                          </div>
+                          {/* <div className="prose max-w-none text-gray-500 dark:text-gray-200">
                           {summary}
                         </div> */}
-                      </div>
-                    </article>
+                        </div>
+                      </article>
+                    </Link>
                   </li>
                 )
               })}
