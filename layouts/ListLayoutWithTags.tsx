@@ -5,8 +5,8 @@ import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import tagData from 'app/tag-data.json'
+// import siteMetadata from '@/data/siteMetadata'
+// import tagData from 'app/tag-data.json'
 import Image from 'next/image'
 import { formatDate } from 'pliny/utils/formatDate'
 
@@ -67,10 +67,10 @@ export default function ListLayoutWithTags({
   initialDisplayPosts = [],
   pagination,
 }: ListLayoutProps) {
-  const pathname = usePathname()
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
+  // const pathname = usePathname()
+  // const tagCounts = tagData as Record<string, number>
+  // const tagKeys = Object.keys(tagCounts)
+  // const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
 
   const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
@@ -86,7 +86,7 @@ export default function ListLayoutWithTags({
           <div>
             <ul className="grid gap-6 lg:grid-cols-2">
               {displayPosts.map((post) => {
-                const { path, date, title, summary, tags, images } = post
+                const { path, date, title, tags, images } = post
 
                 return (
                   <li key={path} className="py-5">
@@ -117,19 +117,6 @@ export default function ListLayoutWithTags({
                         <dl>
                           <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-200"></dd>
                         </dl>
-                        <div className="space-y-3">
-                          <div>
-                            {/* <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
-                              {title}
-                            </Link>
-                          </h2> */}
-                            <div className="flex flex-wrap"></div>
-                          </div>
-                          {/* <div className="prose max-w-none text-gray-500 dark:text-gray-200">
-                          {summary}
-                        </div> */}
-                        </div>
                       </article>
                     </Link>
                   </li>
