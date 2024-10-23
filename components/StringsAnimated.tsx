@@ -36,7 +36,7 @@ const StringsAnimated = () => {
   }, [])
 
   return (
-    <div className="type-wrap text-lg leading-7 text-gray-500 dark:text-gray-200">
+    <div className="type-wrap text-xl leading-7 text-gray-500 dark:text-gray-200">
       <span ref={el} />
     </div>
   )
