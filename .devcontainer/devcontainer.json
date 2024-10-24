@@ -4,18 +4,23 @@
     "memory": "8gb"
   },
   "waitFor": "onCreateCommand",
-  "updateContentCommand": "yarn",
+  "updateContentCommand": "npm install",
   "postCreateCommand": "",
-  "postAttachCommand": "yarn dev",
+  "postAttachCommand": "npm run dev",
   "customizations": {
     "codespaces": {
-      "openFiles": ["data/blog/code-sample.mdx"]
+      "openFiles": [
+        "data/blog/code-sample.mdx"
+      ]
     },
     "vscode": {
       "settings": {
         "editor.formatOnSave": true
       },
-      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
     }
   },
   "portsAttributes": {
@@ -24,5 +29,7 @@
       "onAutoForward": "openPreview"
     }
   },
-  "forwardPorts": [3000]
+  "forwardPorts": [
+    3000
+  ]
 }

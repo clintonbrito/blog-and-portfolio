@@ -1,7 +1,7 @@
 'use client'
 import StringsAnimated from '@/components/StringsAnimated'
 
-export default function Home() {
+export default function Home({ posts }) {
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
