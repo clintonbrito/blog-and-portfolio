@@ -12,10 +12,17 @@ export default function Footer() {
           <SocialIcon kind="linkedin" href={siteMetadata.linkedin} size={6} />
           <SocialIcon kind="x" href={siteMetadata.x} size={6} />
         </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-200">
+        {/* <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-200">
           <div>{siteMetadata.author}</div>
           <div>{` • `}</div>
           <div>{`Copyright © ${new Date().getFullYear()}`}</div>
+          <div>{` • `}</div>
+          <div>{`Have a lovely day 💚`}</div>
+        </div> */}
+        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-200">
+          <div>
+            {`© ${new Date().getFullYear()}`} {siteMetadata.author}. {`Have a lovely day 💚`}
+          </div>
         </div>
       </div>
     </footer>
