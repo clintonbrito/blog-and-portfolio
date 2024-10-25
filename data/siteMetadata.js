@@ -3,7 +3,8 @@ const siteMetadata = {
   title: 'Clinton Brito',
   author: 'Clinton Brito',
   headerTitle: 'Clinton Brito',
-  description: 'Software Developer with a passion for technology, programming, and sharing knowledge.',
+  description:
+    'Software Developer with a passion for technology, programming, and sharing knowledge.',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://clintonbrito.com',
