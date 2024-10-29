@@ -1,0 +1,153 @@
+---
+title: 'Como Configurar Oracle Database Usando Docker'
+date: '2024-10-28'
+lastmod: '2026-10-28'
+tags: ['Oracle', 'Database', 'Docker', 'Linux', 'docker-compose', 'DBeaver']
+draft: false
+summary: 'Aprenda a configurar e usar o Oracle Database no Docker em um ambiente Linux, usando docker-compose para simplificar o processo e conectar via DBeaver.'
+images: ['/static/images/posts/oracle-database-docker-cover.png']
+---
+
+![oracle-database-docker](/static/images/posts/oracle-database-docker-cover.png "Imagem: Venkatesh Prabhu")
+
+
+O texto a seguir descreve um guia prático para configurar o Oracle Database utilizando Docker no Linux, com foco em simplicidade e uso de `docker-compose.yml` para facilitar o processo de inicialização do container.
+
+
+<TOCInline toc={props.toc} exclude="Introduction" />
+
+
+## Introdução
+
+Usar o Oracle Database dentro de um container Docker pode simplificar muito o processo de instalação e gerenciamento de bancos de dados para desenvolvedores e administradores. Neste guia, vamos demonstrar como fazer isso de maneira simples, utilizando um arquivo `docker-compose.yml` para facilitar o processo e permitindo a conexão com a instância do Oracle Database através de ferramentas como o DBeaver.
+
+
+
+## Requisitos
+
+Para seguir este tutorial, basta ter o Docker instalado e configurado na sua máquina. Caso precise de ajuda com a instalação, consulte a [documentação oficial do Docker](https://docs.docker.com/engine/install/).
+
+Apesar de o tutorial ser feito em uma distro Linux (Ubuntu), o Docker é uma tecnologia universal, então ele pode ser facilmente adaptado para Windows ou Mac. Aqui, usarei a versão XE 21c do Oracle Database.
+
+
+
+## Baixando a Imagem do Oracle Database
+
+Infelizmente, a Oracle não disponibiliza as imagens de banco de dados diretamente no Docker Hub por questões de licença, então você tem duas opções:
+
+1) Precisará baixar o instalador do Oracle Database e construir a imagem localmente usando um repositório disponível no GitHub. Neste caso, você pode seguir o tutorial do [Thiago Adriano no Medium da XP Inc.](https://medium.com/xp-inc/dica-r%C3%A1pida-criando-base-de-dados-oracle-vers%C3%A3o-21-3-0-no-docker-357b05754b84);
+2) Usar uma imagem do [Docker Hub personalizada por terceiros](https://hub.docker.com/r/gvenzl/oracle-xe), como no meu tutorial abaixo.
+
+Vale lembrar que esta é uma imagem não oficial da Oracle, mas amplamente utilizada, inclusive por empresas, e aberta para verificação no [GitHub do autor](https://github.com/gvenzl/oci-oracle-xe).
+
+
+
+## Criando o Arquivo `docker-compose.yml`
+
+Para simplificar a inicialização do container, você pode utilizar um arquivo `docker-compose.yml`. Este arquivo permitirá que você inicie o Oracle Database com um simples comando `docker compose up` no seu terminal.
+
+```yaml:docker-compose.yml
+services:
+
+  oracle:
+  
+    # Imagem do Docker Hub (sinta-se livre para trocar a tag "21-full" para qualquer outra que preferir)
+    image: gvenzl/oracle-xe:21-full
+
+    # Caso queira personalizar o nome do container, facilita na hora de interagir com ele nos comandos do docker do terminal
+    container_name: oracle-db
+    
+    # Senha de "administrador" do banco
+    environment:
+      ORACLE_PASSWORD: welcome1
+
+    # Porta padrão do banco Oracle
+    ports:
+      - 1521:1521
+
+    # Esse volume é montado com um script SQL que cria e concede permissões de DBA para o usuário que iremos criar ("C##JAVA")
+    volumes:
+      - ./create_user_and_grant_privileges.sql:/docker-entrypoint-initdb.d/create_user_and_grant_privileges.sql
+```
+
+
+
+## Sobre o Script SQL
+
+O script utilizado no `docker-compose.yml` é o abaixo:
+
+```sql:create_user_and_grant_privileges.sql
+CREATE USER C##JAVA IDENTIFIED BY java;
+GRANT CONNECT, RESOURCE TO C##JAVA;
+GRANT DBA TO C##JAVA;
+```
+
+Explicando rapidamente o que esse script faz:
+
+- `CREATE USER C##JAVA IDENTIFIED BY java;` — Cria um usuário `C##JAVA` com a senha `java`.
+- `GRANT CONNECT, RESOURCE TO C##JAVA;` — Concede permissões básicas para o usuário.
+- `GRANT DBA TO C##JAVA;` — Concede privilégios de administrador.
+
+>  Lembrando que para que o `docker-compose.yml` funcione corretamente, tanto o arquivo docker quanto o do script SQL devem estar no mesmo diretório.
+
+## Iniciando o Banco de Dados
+
+Com o arquivo `docker-compose.yml` configurado, você pode subir o container com o seguinte comando no seu terminal:
+
+```bash
+docker compose up -d
+```
+
+Esse comando irá iniciar o container em segundo plano. Verifique se ele está funcionando corretamente usando:
+
+```bash
+docker ps
+```
+
+
+## Conectando ao Banco de Dados com DBeaver
+
+Para conectar ao banco de dados usando DBeaver:
+
+1. Abra o DBeaver e crie uma nova conexão.
+2. Escolha "Oracle" como o tipo de banco de dados.
+3. Preencha os campos:
+   - **Host**: `localhost`
+   - **Port**: `1521`
+   - **Database**: `XE / SID`
+   - **Authentication**: `Oracle Database Native`
+   - **Username**: `C##JAVA`
+   - **Password**: `java`
+4. Clique em `"Test Connection..."` ou `"Finish / Ok"` para conectar.
+
+![dbeaver-connection](/static/images/posts/dbeaver-connection.png)
+
+Obs.: se for a primeira vez que você se conecta a um banco Oracle no seu DBeaver, é normal ele pedir para fazer o download dos drivers da Oracle.
+
+
+
+## Comandos Úteis para Gerenciar o Container
+
+- **Parar o container**:
+
+```bash
+docker compose down
+```
+
+- **Iniciar novamente**:
+
+```bash
+docker compose up -d
+```
+
+- **Verificar logs**:
+
+```bash
+docker logs oracle-db
+```
+
+## Conclusão
+
+Usar o Oracle Database no Docker é uma ótima maneira de simplificar a configuração e gerenciamento do banco de dados, especialmente para desenvolvedores que precisam de um ambiente de testes rápido e fácil de usar. Com `docker-compose`, você pode iniciar o banco de dados com um simples comando e conectar via ferramentas como DBeaver sem dificuldades.
+
+Se você tiver mais alguma dúvida ou sugestões, fique à vontade para entrar em contato comigo.
