@@ -88,7 +88,6 @@ Explicando rapidamente o que esse script faz:
 - `GRANT CONNECT, RESOURCE TO C##JAVA;` — Concede permissões básicas para o usuário.
 - `GRANT DBA TO C##JAVA;` — Concede privilégios de administrador.
 
->  Lembrando que para que o `docker-compose.yml` funcione corretamente, tanto o arquivo docker quanto o do script SQL devem estar no mesmo diretório.
 
 ## Iniciando o Banco de Dados
 
@@ -103,6 +102,10 @@ Esse comando irá iniciar o container em segundo plano. Verifique se ele está f
 ```bash
 docker ps
 ```
+
+### Observação
+![docker-compose-sql](/static/images/posts/docker-compose-sql.png)
+*💡 Lembrando que, para o correto funcionamento do arquivo `docker-compose.yml`, tanto o arquivo Docker quanto o script SQL devem estar no mesmo diretório, conforme ilustrado no print acima.*
 
 
 ## Conectando ao Banco de Dados com DBeaver
