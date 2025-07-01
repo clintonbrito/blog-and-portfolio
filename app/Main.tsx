@@ -14,8 +14,7 @@ export default function Home({ posts }) {
           </p>
 
           <p className="text-xl leading-7 text-gray-500 dark:text-gray-200">
-            I currently live in Brazil 🇧🇷 and I've been studying Software Development for almost 2
-            years.
+            I currently live in Brazil 🇧🇷 and I've been a Software Developer for over 2 years.
           </p>
 
           <p className="text-xl leading-7 text-gray-500 dark:text-gray-200">
@@ -23,8 +22,7 @@ export default function Home({ posts }) {
           </p>
 
           <p className="text-xl leading-7 text-gray-500 dark:text-gray-200">
-            This website primarily serves to document my career transition and as a technical blog
-            to support my content creation.
+            This website primarily serves to document my career transition and as a technical blog to support my content creation.
           </p>
           <StringsAnimated />
         </div>

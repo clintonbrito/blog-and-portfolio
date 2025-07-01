@@ -1,6 +1,6 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Clinton Brito',
+  title: 'Clinton Brito - Software Developer',
   author: 'Clinton Brito',
   headerTitle: 'Clinton Brito',
   description:

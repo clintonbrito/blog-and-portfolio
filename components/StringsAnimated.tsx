@@ -11,13 +11,12 @@ const StringsAnimated = () => {
   useEffect(() => {
     const options = {
       strings: [
-        'I was born in 1993.',
-        'I was raised in São Paulo.',
+        'I was born in 1993 👶.',
+        'I was raised in São Paulo 🏙️.',
         'I like 🏋️ / 🏃 / 🚴.',
         'I like animals 🐈🐶.',
-        'I like movies 🎬.',
+        'I like 🎮 / 🎬 / 🎵.',
         'I like Formula 1 🏎️.',
-        'I like soundtracks 🎵.',
         '...',
       ],
       typeSpeed: 50,
