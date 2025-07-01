@@ -22,7 +22,8 @@ export default function Home({ posts }) {
           </p>
 
           <p className="text-xl leading-7 text-gray-500 dark:text-gray-200">
-            This website primarily serves to document my career transition and as a technical blog to support my content creation.
+            This website primarily serves to document my career transition and as a technical blog
+            to support my content creation.
           </p>
           <StringsAnimated />
         </div>

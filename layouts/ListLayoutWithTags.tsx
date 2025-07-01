@@ -110,7 +110,9 @@ export default function ListLayoutWithTags({
                               </time>
                             </span>
                             <span className="px-2 text-sm font-bold">
-                              {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                              {tags?.map((tag) => (
+                                <Tag key={tag} text={tag} />
+                              ))}
                             </span>
                           </div>
                         </div>
